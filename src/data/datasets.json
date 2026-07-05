@@ -1,6 +1,6 @@
 [
   {
-    "id": "1783228044673",
+    "id": "1783255533773",
     "title": "©kiryoアプリ　ひと目の詰み筋５手詰① (2026/7/5)",
     "appTitle": "©kiryoアプリ　ひと目の詰み筋５手詰①",
     "problems": [
@@ -365,10 +365,10 @@
         "initialSfen": "7kS/9/6P2/6p2/9/6N2/9/9/9 b SL2r2b4g2s3n3l16p 1"
       }
     ],
-    "timestamp": 1783228044673
+    "timestamp": 1783255533773
   },
   {
-    "id": "1783228038088",
+    "id": "1783255527902",
     "title": "©kiryoアプリ　ひと目の詰み筋５手詰② (2026/7/5)",
     "appTitle": "©kiryoアプリ　ひと目の詰み筋５手詰②",
     "problems": [
@@ -733,10 +733,10 @@
         "initialSfen": "5k3/5pP2/4P2P1/9/9/9/9/9/9 b GS2r2b3g3s4n4l14p 1"
       }
     ],
-    "timestamp": 1783228038088
+    "timestamp": 1783255527902
   },
   {
-    "id": "1783227984570",
+    "id": "1783255522277",
     "title": "©kiryoアプリ　ひと目の詰み筋５手詰③ (2026/7/5)",
     "appTitle": "©kiryoアプリ　ひと目の詰み筋５手詰③",
     "problems": [
@@ -990,7 +990,7 @@
         "id": 43,
         "title": "問題４２",
         "description": "【第 470 問】",
-        "initialSfen": "9/9/9/9/8S/8k/9/6s1p/9 b B2G2r3g3s4n4l17p 1"
+        "initialSfen": "9/9/9/9/8S/8k/9/6s1p/9 b B2G2rb2g2s4n4l17p 1"
       },
       {
         "id": 44,
@@ -1020,7 +1020,7 @@
         "id": 48,
         "title": "問題４７",
         "description": "【第 475 問】",
-        "initialSfen": "9/9/6n2/5gSk1/6p2/5P2P/9/9/9 b 2GS 1"
+        "initialSfen": "9/9/6n2/5gSk1/6p2/5P2P/9/9/9 b 2GS2r2bg2s3n4l15p 1"
       },
       {
         "id": 49,
@@ -1038,13 +1038,13 @@
         "id": 51,
         "title": "問題５０",
         "description": "【第 478 問】",
-        "initialSfen": "9/9/5R3/6s2/7k1/9/6B2/9/9 b Gr3g4s4n4l18p 1"
+        "initialSfen": "9/9/5R3/6s2/7k1/9/6B2/9/9 b Grb3g3s4n4l18p 1"
       },
       {
         "id": 52,
         "title": "問題５１",
         "description": "【第 479 問】",
-        "initialSfen": "9/9/7+B1/9/7kp/9/6Pp1/9/9 b GL 1"
+        "initialSfen": "9/9/7+B1/9/7kp/9/6Pp1/9/9 b GL2rb3g4s4n3l15p 1"
       },
       {
         "id": 53,
@@ -1056,13 +1056,13 @@
         "id": 54,
         "title": "問題５３",
         "description": "【第 481 問】",
-        "initialSfen": "9/9/8R/9/9/7kP/5Pn1n/6g1g/9 b R 1"
+        "initialSfen": "9/9/8R/9/9/7kP/5Pn1n/6g1g/9 b R2b2g4s2n4l16p 1"
       },
       {
         "id": 55,
         "title": "問題５４",
         "description": "【第 482 問】",
-        "initialSfen": "9/9/9/9/6lp1/6gk1/9/6+BSP/9 b NL 1"
+        "initialSfen": "9/9/9/9/6lp1/6gk1/9/6+BSP/9 b NL2rb3g3s3n2l16p 1"
       },
       {
         "id": 56,
@@ -1080,7 +1080,7 @@
         "id": 58,
         "title": "問題５７",
         "description": "【第 485 問】",
-        "initialSfen": "9/9/8G/9/6p2/7kN/9/7S1/9 b GS 1"
+        "initialSfen": "9/9/8G/9/6p2/7kN/9/7S1/9 b GS2r2b2g2s3n4l17p 1"
       },
       {
         "id": 59,
@@ -1097,10 +1097,378 @@
       {
         "id": 61,
         "title": "問題６０",
-        "description": "【第 487 問】",
+        "description": "【第 488 問】",
         "initialSfen": "9/9/5R3/6k1S/9/6P2/9/9/9 b Gr2b3g3s4n4l17p 1"
       }
     ],
-    "timestamp": 1783227984581
+    "timestamp": 1783255522277
+  },
+  {
+    "id": "1783255444856",
+    "title": "©kiryoアプリ　ひと目の詰み筋５手詰④ (2026/7/5)",
+    "appTitle": "©kiryoアプリ　ひと目の詰み筋５手詰④",
+    "problems": [
+      {
+        "id": 2,
+        "title": "問題１",
+        "description": "【第 489 問】",
+        "initialSfen": "9/9/5S3/9/6k1g/9/6S2/9/9 b RGr2b2g2s4n4l18p 1"
+      },
+      {
+        "id": 3,
+        "title": "問題２",
+        "description": "【第 490 問】",
+        "initialSfen": "9/9/7r1/6S2/6k2/9/9/9/7P1 b 2Gr2b2g3s4n4l17p 1"
+      },
+      {
+        "id": 4,
+        "title": "問題３",
+        "description": "【第 491 問】",
+        "initialSfen": "9/9/4p4/4lkP2/9/6S2/9/9/7L1 b BGL2rb3g3s4nl16p 1"
+      },
+      {
+        "id": 5,
+        "title": "問題４",
+        "description": "【第 492 問】",
+        "initialSfen": "9/6G2/6R2/4pk3/9/9/6G2/9/9 b 2GLr2b4s4n3l17p 1"
+      },
+      {
+        "id": 6,
+        "title": "問題５",
+        "description": "【第 493 問】",
+        "initialSfen": "5SS2/9/4r4/5kP2/9/4B4/9/9/9 b Grb3g2s4n4l17p 1"
+      },
+      {
+        "id": 7,
+        "title": "問題６",
+        "description": "【第 494 問】",
+        "initialSfen": "9/9/6P2/5k3/9/4+RSL2/9/9/9 b r2b4g3s4n3l17p 1"
+      },
+      {
+        "id": 8,
+        "title": "問題７",
+        "description": "【第 495 問】",
+        "initialSfen": "9/9/8R/5k1P1/6pp1/3G5/6P2/9/9 b Sr2b3g3s4n4l14p 1"
+      },
+      {
+        "id": 9,
+        "title": "問題８",
+        "description": "【第 496 問】",
+        "initialSfen": "9/9/9/6R2/9/4Lk3/6P2/5S3/9 b NLr2b4g3s3n2l17p 1"
+      },
+      {
+        "id": 10,
+        "title": "問題９",
+        "description": "【第 497 問】",
+        "initialSfen": "9/9/9/9/4R2R1/5k3/6p2/9/9 b NL2b4g4s3n3l17p 1"
+      },
+      {
+        "id": 11,
+        "title": "問題１０",
+        "description": "【第 498 問】",
+        "initialSfen": "9/9/9/4S4/9/5k1B1/7p1/5S2N/9 b GN2rb3g2s2n4l17p 1"
+      },
+      {
+        "id": 12,
+        "title": "問題１１",
+        "description": "【第 499 問】",
+        "initialSfen": "9/9/9/6+P2/3S1k3/9/9/5P3/9 b 2G2r2b2g3s4n4l16p 1"
+      },
+      {
+        "id": 13,
+        "title": "問題１２",
+        "description": "【第 500 問】",
+        "initialSfen": "9/9/4S4/4p4/5k1S1/9/9/5P3/9 b 3G2r2bg2s4n4l16p 1"
+      },
+      {
+        "id": 14,
+        "title": "問題１３",
+        "description": "【第 501 問】",
+        "initialSfen": "9/9/9/6PLk/7g1/9/7N1/9/9 b GNL2r2b2g4s2n2l17p 1"
+      },
+      {
+        "id": 15,
+        "title": "問題１４",
+        "description": "【第 502 問】",
+        "initialSfen": "9/9/9/9/6rp1/6k2/4G3S/9/9 b BGSrb2g2s4n4l17p 1"
+      },
+      {
+        "id": 16,
+        "title": "問題１５",
+        "description": "【第 503 問】",
+        "initialSfen": "9/9/9/7l1/7p1/8S/8k/9/9 b RGLr2b3g3s4n2l17p 1"
+      },
+      {
+        "id": 17,
+        "title": "問題１６",
+        "description": "【第 504 問】",
+        "initialSfen": "9/9/9/9/9/9/8k/8N/8S b RSr2b4g2s3n4l18p 1"
+      },
+      {
+        "id": 18,
+        "title": "問題１７",
+        "description": "【第 505 問】",
+        "initialSfen": "9/9/9/9/8G/6s2/8k/9/7P1 b 3G2r2b3s4n4l17p 1"
+      },
+      {
+        "id": 19,
+        "title": "問題１８",
+        "description": "【第 506 問】",
+        "initialSfen": "9/9/9/9/9/5nps1/7Sk/5pB2/8P b S2rb4gs3n4l15p 1"
+      },
+      {
+        "id": 20,
+        "title": "問題１９",
+        "description": "【第 507 問】",
+        "initialSfen": "9/9/9/9/9/5S3/8k/5P3/8S b GNL2r2b3g2s3n3l17p 1"
+      },
+      {
+        "id": 21,
+        "title": "問題２０",
+        "description": "【第 508 問】",
+        "initialSfen": "9/9/9/9/9/9/8k/6PN1/7P1 b 2GL2r2b2g4s3n3l16p 1"
+      },
+      {
+        "id": 22,
+        "title": "問題２１",
+        "description": "【第 509 問】",
+        "initialSfen": "9/9/9/9/9/8S/9/8k/7gN b Rr2b3g3s3n4l18p 1"
+      },
+      {
+        "id": 23,
+        "title": "問題２２",
+        "description": "【第 510 問】",
+        "initialSfen": "9/9/9/9/9/8S/6n1p/8k/6G2 b SP2r2b3g2s3n4l16p 1"
+      },
+      {
+        "id": 24,
+        "title": "問題２３",
+        "description": "【第 511 問】",
+        "initialSfen": "9/9/9/9/9/9/6B2/8k/7s1 b GL2rb3g3s4n3l18p 1"
+      },
+      {
+        "id": 25,
+        "title": "問題２４",
+        "description": "【第 512 問】",
+        "initialSfen": "9/9/9/9/7SS/9/7s1/8k/7R1 b GPr2b3gs4n4l17p 1"
+      },
+      {
+        "id": 26,
+        "title": "問題２５",
+        "description": "【第 513 問】",
+        "initialSfen": "9/9/9/7R1/9/9/9/6SPk/9 b 2Sr2b4gs4n4l17p 1"
+      },
+      {
+        "id": 27,
+        "title": "問題２６",
+        "description": "【第 514 問】",
+        "initialSfen": "9/9/9/9/7R1/9/9/6p1S/8k b 2SPr2b4gs4n4l16p 1"
+      },
+      {
+        "id": 28,
+        "title": "問題２７",
+        "description": "【第 515 問】",
+        "initialSfen": "9/9/9/9/9/7R1/8G/9/6GPk b r2b2g4s4n4l17p 1"
+      },
+      {
+        "id": 29,
+        "title": "問題２８",
+        "description": "【第 516 問】",
+        "initialSfen": "9/9/9/9/9/9/6SG1/9/8k b G2r2b2g3s4n4l18p 1"
+      },
+      {
+        "id": 30,
+        "title": "問題２９",
+        "description": "【第 517 問】",
+        "initialSfen": "9/9/9/9/9/9/8S/6R2/8k b SPr2b4g2s4n4l17p 1"
+      },
+      {
+        "id": 31,
+        "title": "問題３０",
+        "description": "【第 518 問】",
+        "initialSfen": "9/9/9/9/9/9/9/6G2/8k b RGLr2b2g4s4n3l18p 1"
+      },
+      {
+        "id": 32,
+        "title": "問題３１",
+        "description": "【第 519 問】",
+        "initialSfen": "9/9/9/9/9/9/9/6G2/7k1 b GSL2r2b2g3s4n3l18p 1"
+      },
+      {
+        "id": 33,
+        "title": "問題３２",
+        "description": "【第 520 問】",
+        "initialSfen": "9/9/9/9/9/9/9/8G/6Pk1 b GSL2r2b2g3s4n3l17p 1"
+      },
+      {
+        "id": 34,
+        "title": "問題３３",
+        "description": "【第 521 問】",
+        "initialSfen": "9/9/9/9/9/9/9/4GS1Pp/7k1 b GS2r2b2g2s4n4l16p 1"
+      },
+      {
+        "id": 35,
+        "title": "問題３４",
+        "description": "【第 522 問】",
+        "initialSfen": "9/9/9/9/9/9/6S2/9/7k1 b 2GS2r2b2g2s4n4l18p 1"
+      },
+      {
+        "id": 36,
+        "title": "問題３５",
+        "description": "【第 523 問】",
+        "initialSfen": "9/9/9/9/9/9/6PkS/4B1p2/9 b 2S2rb4gs4n4l16p 1"
+      },
+      {
+        "id": 37,
+        "title": "問題３６",
+        "description": "【第 524 問】",
+        "initialSfen": "9/9/9/9/8S/5p3/4L2k1/5R3/9 b GSr2b3g2s4n3l17p 1"
+      },
+      {
+        "id": 38,
+        "title": "問題３７",
+        "description": "【第 525 問】",
+        "initialSfen": "9/9/9/9/7S1/9/7k1/6l2/6SP1 b GN2r2b3g2s3n3l17p 1"
+      },
+      {
+        "id": 39,
+        "title": "問題３８",
+        "description": "【第 526 問】",
+        "initialSfen": "9/9/9/9/9/9/7kN/6P2/7S1 b GSL2r2b3g2s3n3l17p 1"
+      },
+      {
+        "id": 40,
+        "title": "問題３９",
+        "description": "【第 527 問】",
+        "initialSfen": "9/9/9/9/9/6ppp/7k1/9/6+B2 b SP2rb4g3s4n4l14p 1"
+      },
+      {
+        "id": 41,
+        "title": "問題４０",
+        "description": "【第 528 問】",
+        "initialSfen": "9/9/9/9/5p1P+B/5nR2/7k1/5Pl1p/9 b rb4g4s3n3l14p 1"
+      },
+      {
+        "id": 42,
+        "title": "問題４１",
+        "description": "【第 529 問】",
+        "initialSfen": "9/9/9/9/9/9/7k1/5B3/9 b RGSrb3g3s4n4l18p 1"
+      },
+      {
+        "id": 43,
+        "title": "問題４２",
+        "description": "【第 530 問】",
+        "initialSfen": "9/9/9/9/9/7pg/9/6Sk1/5+R2s b r2b3g2s4n4l17p 1"
+      },
+      {
+        "id": 44,
+        "title": "問題４３",
+        "description": "【第 531 問】",
+        "initialSfen": "9/9/9/9/9/9/5+B3/7k1/5s2L b SLP2rb4g2s4n2l17p 1"
+      },
+      {
+        "id": 45,
+        "title": "問題４４",
+        "description": "【第 532 問】",
+        "initialSfen": "9/9/9/9/9/9/9/7k1/6P1g b RGLr2b2g4s4n3l17p 1"
+      },
+      {
+        "id": 46,
+        "title": "問題４５",
+        "description": "【第 533 問】",
+        "initialSfen": "9/9/6s2/9/9/6ks1/6ps1/5L3/9 b BGS2rb3g4n3l17p 1"
+      },
+      {
+        "id": 47,
+        "title": "問題４６",
+        "description": "【第 534 問】",
+        "initialSfen": "9/9/9/9/9/6G2/8k/8N/8S b N2r2b3g3s2n4l18p 1"
+      },
+      {
+        "id": 48,
+        "title": "問題４７",
+        "description": "【第 535 問】",
+        "initialSfen": "9/9/9/9/9/5P3/6k2/6NpP/4S4 b 2G2r2b2g3s3n4l15p 1"
+      },
+      {
+        "id": 49,
+        "title": "問題４８",
+        "description": "【第 536 問】",
+        "initialSfen": "9/9/9/9/9/7p1/6k1P/4S4/6gP1 b RGLr2b2g3s4n3l15p 1"
+      },
+      {
+        "id": 50,
+        "title": "問題４９",
+        "description": "【第 537 問】",
+        "initialSfen": "9/9/9/9/9/6p2/4S1k1S/9/6Pb1 b 2SL2rb4g4n3l16p 1"
+      },
+      {
+        "id": 51,
+        "title": "問題５０",
+        "description": "【第 538 問】",
+        "initialSfen": "9/9/9/9/9/5g3/6k1+B/5P3/9 b RGLrb2g4s4n3l17p 1"
+      },
+      {
+        "id": 52,
+        "title": "問題５１",
+        "description": "【第 539 問】",
+        "initialSfen": "9/9/9/9/9/6p2/7s1/6k2/4+R4 b RBb4g3s4n4l17p 1"
+      },
+      {
+        "id": 53,
+        "title": "問題５２",
+        "description": "【第 540 問】",
+        "initialSfen": "9/9/9/9/9/9/5p1G1/3S5/6kgN b 2GS2r2b2s3n4l17p 1"
+      },
+      {
+        "id": 54,
+        "title": "問題５３",
+        "description": "【第 541 問】",
+        "initialSfen": "9/9/9/9/9/9/9/7R1/3S2k2 b GSr2b3g2s4n4l18p 1"
+      },
+      {
+        "id": 55,
+        "title": "問題５４",
+        "description": "【第 542 問】",
+        "initialSfen": "9/9/9/9/9/9/9/4B4/6k1S b 2G2rb2g3s4n4l18p 1"
+      },
+      {
+        "id": 56,
+        "title": "問題５５",
+        "description": "【第 543 問】",
+        "initialSfen": "9/9/9/9/9/5p3/7S1/9/6k1+p b RGr2b3g3s4n4l16p 1"
+      },
+      {
+        "id": 57,
+        "title": "問題５６",
+        "description": "【第 544 問】",
+        "initialSfen": "9/9/9/9/9/6G2/5k3/3pl4/8S b 2R2b3g3s4n3l17p 1"
+      },
+      {
+        "id": 58,
+        "title": "問題５７",
+        "description": "【第 545 問】",
+        "initialSfen": "9/9/9/9/9/9/3S1Sl2/7p1/5k3 b Rr2b4g2s4n3l17p 1"
+      },
+      {
+        "id": 59,
+        "title": "問題５８",
+        "description": "【第 546 問】",
+        "initialSfen": "9/9/7B1/9/5+P2B/9/4Pk3/9/9 b G2r3g4s4n4l16p 1"
+      },
+      {
+        "id": 60,
+        "title": "問題５９",
+        "description": "【第 547 問】",
+        "initialSfen": "9/9/9/9/9/6n2/9/4G3s/5k3 b 2GL2r2bg3s3n3l18p 1"
+      },
+      {
+        "id": 61,
+        "title": "問題６０",
+        "description": "【第 548 問】",
+        "initialSfen": "9/9/9/9/9/3R5/4p4/4l2l1/4skP2 b BGrb3g3s4n2l16p 1"
+      }
+    ],
+    "timestamp": 1783255444866
   }
 ]
