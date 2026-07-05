@@ -593,6 +593,39 @@ export default function App() {
     return localStorage.getItem('tsumeShogiRandomOrder') === 'true';
   });
 
+  const [timerRemaining, setTimerRemaining] = useState<number | null>(null);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [showTimerFinished, setShowTimerFinished] = useState(false);
+
+  useEffect(() => {
+    let intervalId: any;
+    if (isTimerRunning && timerRemaining !== null && timerRemaining > 0) {
+      intervalId = setInterval(() => {
+        setTimerRemaining((prev) => {
+          if (prev === null) return null;
+          if (prev <= 1) {
+            setIsTimerRunning(false);
+            setShowTimerFinished(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(intervalId);
+  }, [isTimerRunning, timerRemaining]);
+
+  const startTimer = () => {
+    setTimerRemaining(300); // 5 minutes
+    setIsTimerRunning(true);
+    setShowTimerFinished(false);
+  };
+
+  const stopTimer = () => {
+    setIsTimerRunning(false);
+    setTimerRemaining(null);
+  };
+
   const loadDataSetFromStartup = async (dataset: DataSet) => {
     setProblems(dataset.problems);
     setAppTitle(dataset.appTitle);
@@ -1658,7 +1691,7 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
                 <div
                   className={`
                     w-full h-full flex items-center justify-center rounded shadow-sm
-                    ${piece.color === Color.Black ? 'bg-stone-50' : 'bg-[#F5D799]'} border border-stone-700/50
+                    ${piece.color === Color.Black ? 'bg-stone-50' : 'bg-[#FDF0C8]'} border border-stone-700/50
                     transition-all duration-200
                   `}
                 >
@@ -1697,7 +1730,7 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
               className={`
                 relative flex items-center justify-center rounded
                 ${color === Color.Black ? 'w-[10vw] max-w-[46px] h-[10vw] max-h-[46px]' : 'w-8 h-8 sm:w-10 sm:h-10'}
-                cursor-pointer border border-stone-700/50 ${color === Color.Black ? 'bg-stone-50 hover:bg-white' : 'bg-[#F5D799] hover:bg-[#ebd095]'} shadow-sm
+                cursor-pointer border border-stone-700/50 ${color === Color.Black ? 'bg-stone-50 hover:bg-white' : 'bg-[#FDF0C8] hover:bg-[#F5E2B2]'} shadow-sm
                 ${selectedHandPiece?.piece === kind && selectedHandPiece?.color === color ? '!ring-2 !ring-blue-500' : ''}
                 transition-all duration-200
               `}
@@ -1739,6 +1772,30 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
 
   return (
     <div className="h-[100dvh] bg-[#1A2F24] text-stone-900 font-sans flex flex-col items-center overflow-hidden relative">
+      {/* Timer Finished Modal */}
+      <AnimatePresence>
+        {showTimerFinished && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none bg-black/30 backdrop-blur-sm"
+          >
+            <div className="bg-red-600 border-[4px] border-red-800 rounded-2xl px-8 py-8 sm:px-12 shadow-2xl flex flex-col items-center gap-4">
+              <span className="text-6xl sm:text-8xl font-black text-white tracking-widest drop-shadow-lg">終了！</span>
+              <span className="text-xl sm:text-2xl font-bold text-white/90">5分が経過しました</span>
+              <button 
+                onClick={() => setShowTimerFinished(false)}
+                className="mt-4 px-6 py-2 bg-white text-red-700 font-bold rounded-full hover:bg-red-100 pointer-events-auto"
+              >
+                閉じる
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Custom Modals */}
       {confirmDialog && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -1780,8 +1837,34 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
         </div>
       )}
 
-      <div className="w-full bg-[#2A4C3A] py-2 px-4 flex justify-center items-center border-b-2 border-black/20 shrink-0 shadow-sm">
-        <span className="text-white font-black text-base sm:text-lg tracking-wide">{appTitle}</span>
+      <div className="w-full bg-[#2A4C3A] py-2 px-4 flex justify-between items-center border-b-2 border-black/20 shrink-0 shadow-sm">
+        <div className="flex-1"></div>
+        <span className="text-white font-black tracking-wide shrink-0 flex justify-center items-center">
+          {timerRemaining !== null ? (
+            <span className={`font-mono font-black text-3xl sm:text-4xl leading-none tracking-tighter ${timerRemaining <= 60 ? 'text-red-400' : 'text-amber-300'}`}>
+              {Math.floor(timerRemaining / 60)}:{String(timerRemaining % 60).padStart(2, '0')}
+            </span>
+          ) : (
+            <span className="text-base sm:text-lg">{appTitle}</span>
+          )}
+        </span>
+        <div className="flex-1 flex justify-end items-center gap-2">
+          {!isTimerRunning ? (
+            <button
+              onClick={startTimer}
+              className="bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold px-2 py-1 rounded shadow-sm whitespace-nowrap"
+            >
+              5分タイマー
+            </button>
+          ) : (
+            <button
+              onClick={stopTimer}
+              className="bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-bold px-2 py-1 rounded shadow-sm whitespace-nowrap"
+            >
+              停止
+            </button>
+          )}
+        </div>
       </div>
       <header className="w-full flex-none px-2 sm:px-4 py-2 flex items-center justify-between shadow-sm z-10 bg-[#1A2F24] text-white border-b border-black/20">
         <button
