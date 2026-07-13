@@ -987,7 +987,19 @@ export default function App() {
       return;
     }
 
-    setCurrentProblemIndex(prev => Math.min(problems.length - 1, prev + 1));
+    const nextUnsolvedIdx = problems.findIndex((p, idx) => idx > currentProblemIndex && !solvedProblems.includes(p.id));
+    if (nextUnsolvedIdx !== -1) {
+      setCurrentProblemIndex(nextUnsolvedIdx);
+    } else {
+      const firstUnsolvedIdx = problems.findIndex(p => !solvedProblems.includes(p.id));
+      if (firstUnsolvedIdx !== -1) {
+        setCurrentProblemIndex(firstUnsolvedIdx);
+      } else {
+        if (currentProblemIndex < problems.length - 1) {
+          setCurrentProblemIndex(prev => prev + 1);
+        }
+      }
+    }
   }, [isRandomOrder, problems, solvedProblems, currentProblemIndex, isTimerRunning, failedProblemIds, resetCounts, isTimerReviewPhase]);
 
   const handleAddEmptyProblem = () => {
@@ -1960,7 +1972,7 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
 
           <button
             onClick={goToNextProblem}
-            disabled={(!isRandomOrder && currentProblemIndex === problems.length - 1) && !(isTimerRunning && failedProblemIds.length > 0)}
+            disabled={!isRandomOrder && currentProblemIndex === problems.length - 1 && solvedProblems.length === problems.length && !(isTimerRunning && failedProblemIds.length > 0)}
             className="p-1 sm:p-2 rounded-full hover:bg-white/20 disabled:opacity-30 transition-colors"
             title="次の問題"
           >
@@ -2036,7 +2048,7 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
               ${isGameOver ? 'bg-green-100 text-green-800 scale-105' : 'bg-[#FFF9E6] border border-[#E8DCC0] text-[#5A4A32]'}
             `}>
               {message === 'CORRECT' ? (
-                (isRandomOrder ? solvedProblems.length < problems.length : (currentProblemIndex < problems.length - 1 || (isTimerRunning && failedProblemIds.length > 0))) ? (
+                solvedProblems.length < problems.length ? (
                   <button 
                     onClick={goToNextProblem}
                     className="w-full bg-green-600 text-white py-2 rounded-lg font-bold text-base hover:bg-green-700 transition-colors shadow-sm active:scale-95 flex items-center justify-center gap-2"
@@ -2304,7 +2316,7 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
                   正解：{solvedProblems.length}問 / {problems.length}
                 </span>
                 <span className="text-sm font-bold text-stone-800">
-                  間違えた回数: {Object.values(resetCounts).reduce((a, b) => a + b, 0)}回
+                  間違えた回数: {Object.values(resetCounts).reduce((a, b) => (a as number) + (b as number), 0)}回
                 </span>
               </div>
             </motion.div>
