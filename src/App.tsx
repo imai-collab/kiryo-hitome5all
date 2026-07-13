@@ -568,6 +568,8 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [pendingPromotionMove, setPendingPromotionMove] = useState<Move | null>(null);
   const [sfenHistory, setSfenHistory] = useState<string[]>([]);
+  const [failedProblemIds, setFailedProblemIds] = useState<number[]>([]);
+  const [isTimerReviewPhase, setIsTimerReviewPhase] = useState(false);
   const [resetCounts, setResetCounts] = useState<Record<number, number>>({});
   const [resetTrigger, setResetTrigger] = useState(0);
   const [solvedAiMovesMap, setSolvedAiMovesMap] = useState<Record<string, Move[]>>({});
@@ -606,7 +608,7 @@ export default function App() {
           if (prev <= 1) {
             setIsTimerRunning(false);
             setShowTimerFinished(true);
-            return 0;
+            return null;
           }
           return prev - 1;
         });
@@ -619,6 +621,9 @@ export default function App() {
     setTimerRemaining(300); // 5 minutes
     setIsTimerRunning(true);
     setShowTimerFinished(false);
+    setFailedProblemIds([]);
+    setIsTimerReviewPhase(false);
+    setCurrentProblemIndex(0);
   };
 
   const stopTimer = () => {
@@ -922,6 +927,25 @@ export default function App() {
   const currentProblem = problems[currentProblemIndex];
 
   const goToNextProblem = useCallback(() => {
+    if (isTimerRunning) {
+      if (!isTimerReviewPhase && currentProblemIndex < problems.length - 1) {
+        setCurrentProblemIndex(prev => prev + 1);
+      } else {
+        if (!isTimerReviewPhase) {
+          setIsTimerReviewPhase(true);
+        }
+        if (failedProblemIds.length > 0) {
+          const nextFailedId = failedProblemIds[0];
+          const nextIdx = problems.findIndex(p => p.id === nextFailedId);
+          if (nextIdx !== -1) {
+            setCurrentProblemIndex(nextIdx);
+            setFailedProblemIds(prev => prev.slice(1));
+          }
+        }
+      }
+      return;
+    }
+
     if (isRandomOrder) {
       const unsolvedIndices = problems
         .map((p, idx) => ({ idx, id: p.id }))
@@ -942,7 +966,7 @@ export default function App() {
     } else {
       setCurrentProblemIndex(prev => Math.min(problems.length - 1, prev + 1));
     }
-  }, [isRandomOrder, problems, solvedProblems, currentProblemIndex]);
+  }, [isRandomOrder, problems, solvedProblems, currentProblemIndex, isTimerRunning, failedProblemIds]);
 
   const handleAddEmptyProblem = () => {
     const newProblem: Problem = {
@@ -1297,6 +1321,23 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
       setIsUploading(false);
     }
   };
+
+  useEffect(() => {
+    if (isGameOver && isTimerRunning) {
+      if (message !== 'CORRECT') {
+        setFailedProblemIds(prev => {
+          if (!prev.includes(currentProblem.id)) {
+            return [...prev, currentProblem.id];
+          }
+          return prev;
+        });
+        const timer = setTimeout(() => {
+          goToNextProblem();
+        }, 1500);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [isGameOver, isTimerRunning, message, currentProblem?.id, goToNextProblem]);
 
   const resetGame = useCallback(() => {
     if (!currentProblem) return;
@@ -1897,7 +1938,7 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
 
           <button
             onClick={goToNextProblem}
-            disabled={!isRandomOrder && currentProblemIndex === problems.length - 1}
+            disabled={(!isRandomOrder && currentProblemIndex === problems.length - 1) && !(isTimerRunning && failedProblemIds.length > 0)}
             className="p-1 sm:p-2 rounded-full hover:bg-white/20 disabled:opacity-30 transition-colors"
             title="次の問題"
           >
@@ -1973,7 +2014,7 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
               ${isGameOver ? 'bg-green-100 text-green-800 scale-105' : 'bg-[#FFF9E6] border border-[#E8DCC0] text-[#5A4A32]'}
             `}>
               {message === 'CORRECT' ? (
-                (isRandomOrder ? solvedProblems.length < problems.length : currentProblemIndex < problems.length - 1) ? (
+                (isRandomOrder ? solvedProblems.length < problems.length : (currentProblemIndex < problems.length - 1 || (isTimerRunning && failedProblemIds.length > 0))) ? (
                   <button 
                     onClick={goToNextProblem}
                     className="w-full bg-green-600 text-white py-2 rounded-lg font-bold text-base hover:bg-green-700 transition-colors shadow-sm active:scale-95 flex items-center justify-center gap-2"
@@ -1991,18 +2032,41 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
             <div className="flex flex-row w-full max-w-full px-2 sm:px-0 sm:max-w-[480px] gap-2 mt-1 sm:mt-0">
               <button
                 onClick={() => {
-                  if (moveHistory.length > 0 && message !== 'CORRECT') {
+                  if (isTimerRunning) {
                     setResetCounts(prev => ({
                       ...prev,
                       [currentProblem.id]: (prev[currentProblem.id] || 0) + 1
                     }));
+                    setFailedProblemIds(prev => {
+                      if (!prev.includes(currentProblem.id)) {
+                        return [...prev, currentProblem.id];
+                      }
+                      return prev;
+                    });
+                    goToNextProblem();
+                  } else {
+                    if (moveHistory.length > 0 && message !== 'CORRECT') {
+                      setResetCounts(prev => ({
+                        ...prev,
+                        [currentProblem.id]: (prev[currentProblem.id] || 0) + 1
+                      }));
+                    }
+                    resetGame();
                   }
-                  resetGame();
                 }}
-                className="flex-1 flex items-center justify-center gap-1 sm:gap-2 bg-amber-800 text-white py-1.5 sm:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base hover:bg-amber-900 transition-colors shadow-sm active:scale-95"
+                className={`flex-1 flex items-center justify-center gap-1 sm:gap-2 ${isTimerRunning ? 'bg-red-700 hover:bg-red-800' : 'bg-amber-800 hover:bg-amber-900'} text-white py-1.5 sm:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base transition-colors shadow-sm active:scale-95`}
               >
-                <RotateCcw size={14} className="sm:w-[18px] sm:h-[18px]" />
-                最初から
+                {isTimerRunning ? (
+                  <>
+                    <ChevronRight size={14} className="sm:w-[18px] sm:h-[18px]" />
+                    不詰み　次へ
+                  </>
+                ) : (
+                  <>
+                    <RotateCcw size={14} className="sm:w-[18px] sm:h-[18px]" />
+                    最初から
+                  </>
+                )}
               </button>
               <button
                 onClick={handleChangeGoteMove}
