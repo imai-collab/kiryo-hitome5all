@@ -623,7 +623,27 @@ export default function App() {
     setShowTimerFinished(false);
     setFailedProblemIds([]);
     setIsTimerReviewPhase(false);
-    setCurrentProblemIndex(0);
+    
+    if (isRandomOrder) {
+      const unsolvedEntries = problems
+        .map((p, idx) => ({ idx, id: p.id, resets: resetCounts[p.id] || 0 }))
+        .filter(entry => !solvedProblems.includes(entry.id));
+
+      if (unsolvedEntries.length > 0) {
+        const minResets = Math.min(...unsolvedEntries.map(e => e.resets));
+        const candidateIndices = unsolvedEntries.filter(e => e.resets === minResets).map(e => e.idx);
+        const randomIndex = candidateIndices[Math.floor(Math.random() * candidateIndices.length)];
+        setCurrentProblemIndex(randomIndex);
+      } else {
+        if (problems.length > 0) {
+          setCurrentProblemIndex(Math.floor(Math.random() * problems.length));
+        } else {
+          setCurrentProblemIndex(0);
+        }
+      }
+    } else {
+      setCurrentProblemIndex(0);
+    }
   };
 
   const stopTimer = () => {
@@ -927,6 +947,27 @@ export default function App() {
   const currentProblem = problems[currentProblemIndex];
 
   const goToNextProblem = useCallback(() => {
+    if (isRandomOrder) {
+      const unsolvedEntries = problems
+        .map((p, idx) => ({ idx, id: p.id, resets: resetCounts[p.id] || 0 }))
+        .filter(entry => !solvedProblems.includes(entry.id) && entry.idx !== currentProblemIndex);
+
+      if (unsolvedEntries.length > 0) {
+        const minResets = Math.min(...unsolvedEntries.map(e => e.resets));
+        const candidateIndices = unsolvedEntries.filter(e => e.resets === minResets).map(e => e.idx);
+        const randomIndex = candidateIndices[Math.floor(Math.random() * candidateIndices.length)];
+        setCurrentProblemIndex(randomIndex);
+      } else {
+        const allIndices = problems.map((_, i) => i).filter(i => i !== currentProblemIndex);
+        if (allIndices.length > 0) {
+           setCurrentProblemIndex(allIndices[Math.floor(Math.random() * allIndices.length)]);
+        } else {
+           setCurrentProblemIndex(prev => Math.min(problems.length - 1, prev + 1));
+        }
+      }
+      return;
+    }
+
     if (isTimerRunning) {
       if (!isTimerReviewPhase && currentProblemIndex < problems.length - 1) {
         setCurrentProblemIndex(prev => prev + 1);
@@ -946,27 +987,8 @@ export default function App() {
       return;
     }
 
-    if (isRandomOrder) {
-      const unsolvedIndices = problems
-        .map((p, idx) => ({ idx, id: p.id }))
-        .filter(entry => !solvedProblems.includes(entry.id) && entry.idx !== currentProblemIndex)
-        .map(entry => entry.idx);
-
-      if (unsolvedIndices.length > 0) {
-        const randomIndex = unsolvedIndices[Math.floor(Math.random() * unsolvedIndices.length)];
-        setCurrentProblemIndex(randomIndex);
-      } else {
-        const allIndices = problems.map((_, i) => i).filter(i => i !== currentProblemIndex);
-        if (allIndices.length > 0) {
-           setCurrentProblemIndex(allIndices[Math.floor(Math.random() * allIndices.length)]);
-        } else {
-           setCurrentProblemIndex(prev => Math.min(problems.length - 1, prev + 1));
-        }
-      }
-    } else {
-      setCurrentProblemIndex(prev => Math.min(problems.length - 1, prev + 1));
-    }
-  }, [isRandomOrder, problems, solvedProblems, currentProblemIndex, isTimerRunning, failedProblemIds]);
+    setCurrentProblemIndex(prev => Math.min(problems.length - 1, prev + 1));
+  }, [isRandomOrder, problems, solvedProblems, currentProblemIndex, isTimerRunning, failedProblemIds, resetCounts, isTimerReviewPhase]);
 
   const handleAddEmptyProblem = () => {
     const newProblem: Problem = {
@@ -2231,8 +2253,23 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
               onClick={e => e.stopPropagation()}
               className="bg-stone-100 w-full max-w-md rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[80vh]"
             >
-              <div className="p-4 border-b border-stone-800/10 flex justify-between items-center bg-white/50">
+              <div className="p-4 border-b border-stone-800/10 flex justify-between items-center bg-white/50 relative">
                 <h3 className="font-bold text-stone-800 text-lg">正解状況</h3>
+                <button
+                  onClick={() => {
+                    setSolvedProblems([]);
+                    setSolvedAiMovesMap({});
+                    setResetCounts({});
+                    setFailedProblemIds([]);
+                    stopTimer();
+                    setShowProgressModal(false);
+                    setShowStartupModal(true);
+                  }}
+                  className="absolute left-1/2 -translate-x-1/2 px-3 py-1 bg-red-600 text-white rounded-lg font-bold text-sm hover:bg-red-700 active:scale-95 transition-all shadow-sm flex items-center gap-1"
+                >
+                  <RotateCcw size={14} />
+                  リセット
+                </button>
                 <button onClick={() => setShowProgressModal(false)} className="p-2 bg-stone-200 rounded-full text-stone-800 hover:bg-stone-300 transition-colors">
                   <X size={20} />
                 </button>
@@ -2250,11 +2287,11 @@ SFEN形式の例: 7nl/1R3sk2/5pppp/9/9/9/9/9/9 b GS 1
                           className={`
                             relative p-2 rounded-xl flex flex-col items-center justify-center border-2 transition-all shadow-sm
                             ${isCurrent ? 'ring-2 ring-stone-500 ring-offset-2 ring-offset-[#fdf6e3]' : ''}
-                            ${isSolved ? 'bg-green-100 border-green-300 text-green-800 hover:bg-green-200' : 'bg-white border-stone-300 text-stone-800 hover:bg-stone-50'}
+                            ${isSolved ? 'bg-green-100 border-green-300 text-green-800 hover:bg-green-200' : resetCount > 0 ? 'bg-red-50 border-red-200 text-red-500 hover:bg-red-100' : 'bg-white border-stone-300 text-stone-800 hover:bg-stone-50'}
                           `}
                         >
                            <span className="text-sm font-bold">{i+1}</span>
-                           <div className={`text-xs mt-1 font-semibold ${isSolved ? 'text-green-700/80' : 'text-stone-700/80'}`}>
+                           <div className={`text-xs mt-1 font-semibold ${isSolved ? 'text-green-700/80' : resetCount > 0 ? 'text-red-400' : 'text-stone-700/80'}`}>
                              {resetCount}回
                            </div>
                         </button>
